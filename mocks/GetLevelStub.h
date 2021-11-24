@@ -5,9 +5,9 @@
 extern "C" {
 #endif
 
-extern unsigned char stub_level_percentage;
+extern int stub_level_percentage;
 
-unsigned char get_stub_level_percentage();
+double get_stub_level_percentage();
 
 #ifdef __cplusplus
 }
