@@ -2,6 +2,7 @@
 
 IMPORT_TEST_GROUP(GetLevel);
 IMPORT_TEST_GROUP(Percent);
+IMPORT_TEST_GROUP(AskToSleep);
 
 int main(int argc, char** argv)
 {

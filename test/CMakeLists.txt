@@ -4,6 +4,7 @@ project (PowerManagementUnit)
 include_directories(${PROJECT_SOURCE_DIR}/../include)
 include_directories(${PROJECT_SOURCE_DIR}/../include/powermu)
 include_directories(${PROJECT_SOURCE_DIR}/../include/number)
+include_directories(${PROJECT_SOURCE_DIR}/../include/sleepable)
 
 # include mocks only for test code
 include_directories(${PROJECT_SOURCE_DIR}/../mocks)
@@ -15,6 +16,7 @@ set_property(TARGET imp_cpputest PROPERTY IMPORTED_LOCATION $ENV{CPPUTEST_PARENT
 # build test library for application
 add_library(GetLevelTest powermu/GetLevelTest.cpp)
 add_library(PercentTest number/PercentTest.cpp)
+add_library(MakeDeviceSleepTest sleepable/AskDeviceToSleepTest.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 
@@ -22,6 +24,9 @@ target_link_libraries(RunAllTests
         imp_cpputest
         GetLevelTest
         PercentTest
+        MakeDeviceSleepTest
         PowerMU
         Percent
+        AskToSleep
+        Sleepable
         GetLevelStub)

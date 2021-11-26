@@ -1,7 +1,7 @@
 #ifndef POWERMANAGEMENTUNIT_INCLUDE_POWERMU_POWERMU_H_
 #define POWERMANAGEMENTUNIT_INCLUDE_POWERMU_POWERMU_H_
 
-#include <Percent.h>
+#include "Percent.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
