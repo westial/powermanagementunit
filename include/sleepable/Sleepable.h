@@ -1,7 +1,3 @@
-//
-// Created by jaume on 11/25/21.
-//
-
 #ifndef POWERMANAGEMENTUNIT_INCLUDE_SLEEPABLE_SLEEPABLE_H_
 #define POWERMANAGEMENTUNIT_INCLUDE_SLEEPABLE_SLEEPABLE_H_
 
@@ -9,15 +5,18 @@
 extern "C" {
 #endif
 
-typedef struct Sleepable {
-  unsigned char power_threshold;
-  void (*sleep)();
-} Sleepable;
+typedef struct SleepableInterfaceStruct *SleepableInterface;
 
-Sleepable Sleepable_Create(unsigned char power_threshold, void (*sleep_)());
+typedef struct SleepableStruct *Sleepable;
+
+void Sleepable_SetInterface(SleepableInterface interface);
+void Sleepable_Destroy(Sleepable instance);
+void Sleepable_TurnOff(Sleepable instance);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif//POWERMANAGEMENTUNIT_INCLUDE_SLEEPABLE_SLEEPABLE_H_
+
+#include "SleepablePrivate.h"

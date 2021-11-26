@@ -1,8 +1,15 @@
 #include "Sleepable.h"
 
-Sleepable Sleepable_Create(unsigned char power_threshold, void (*sleep_)()) {
-  Sleepable instance;
-  instance.power_threshold = power_threshold;
-  instance.sleep = sleep_;
-  return instance;
+static SleepableInterface interface = 0;
+
+void Sleepable_SetInterface(SleepableInterface interface_) {
+  interface = interface_;
+}
+
+void Sleepable_TurnOff(Sleepable self) {
+  interface->TurnOff(self);
+}
+
+void Sleepable_Destroy(Sleepable self) {
+  interface->Destroy(self);
 }

@@ -29,4 +29,6 @@ target_link_libraries(RunAllTests
         Percent
         AskToSleep
         Sleepable
-        GetLevelStub)
+        GetLevelStub
+        SimpleDeviceSpy
+        SimpleSleepableStub)

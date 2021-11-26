@@ -1,52 +1,40 @@
 #include "AskToSleep.h"
-#include "CppUTest/TestHarness.h"
+#include "SimpleDeviceSpy.h"
+#include "SimpleSleepableStub.h"
 #include "Sleepable.h"
+#include "CppUTest/TestHarness.h"
 
-static int spy_sleep_counter;
-
-static void spy_simple_sleep_command();
-static void spy_two_args_sleep_command(int arg1, char *args2);
-
-// -----------------------------------------------------------------------------
-
-void spy_simple_sleep_command() {
-  ++spy_sleep_counter;
-}
-
-static void spy_two_args_sleep_command(int arg1, char *args2) {
-  ++spy_sleep_counter;
-}
+int simple_device_sleep_counter;
 
 TEST_GROUP(AskToSleep){
 
     void setup() override{
-        spy_sleep_counter = 0;
+        simple_device_sleep_counter = 0;
+        SimpleSleepable_InstallInterface();
     }
 };
 
 TEST(AskToSleep, BypassPowerCheck) {
-  Sleepable device;
-  device.power_threshold = 0;
-  CHECK_FALSE(AskToSleep(&device, 0));
-  CHECK_FALSE(AskToSleep(&device, 50));
-  CHECK_FALSE(AskToSleep(&device, 100));
+  Sleepable instance = SimpleSleepable_Create(0, SimpleDeviceSpy_Sleep);
+  CHECK_FALSE(AskToSleep(instance, 0));
+  CHECK_FALSE(AskToSleep(instance, 50));
+  CHECK_FALSE(AskToSleep(instance, 100));
 }
 
 TEST(AskToSleep, ReturnNoNeedToSleep) {
-  Sleepable device;
-  device.power_threshold = 50;
-  CHECK_FALSE(AskToSleep(&device, 50));
-  CHECK_FALSE(AskToSleep(&device, 51));
+  Sleepable instance = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  CHECK_FALSE(AskToSleep(instance, 50));
+  CHECK_FALSE(AskToSleep(instance, 51));
 }
 
 TEST(AskToSleep, MakeSimpleDeviceSleep) {
-  Sleepable device = Sleepable_Create(100, spy_simple_sleep_command);
-  CHECK_TRUE(AskToSleep(&device, 99));
-  CHECK_EQUAL(1, spy_sleep_counter);
+  Sleepable instance = SimpleSleepable_Create(100, SimpleDeviceSpy_Sleep);
+  CHECK_TRUE(AskToSleep(instance, 99));
+  CHECK_EQUAL(1, simple_device_sleep_counter);
 }
 
 //TEST(AskToSleep, MakeSleepADeviceWitTwoArgsCallback) {
-//  Sleepable device = Sleepable_Create(100, spy_two_args_sleep_command);
+//  SleepableStruct device = Sleepable_Create(100, spy_two_args_sleep_command);
 //  CHECK_TRUE(AskToSleep(&device, 99));
 //  CHECK_EQUAL(1, spy_sleep_counter);
 //}
