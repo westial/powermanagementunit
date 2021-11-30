@@ -1,8 +1,8 @@
 #include "AskToSleep.h"
-#include "SimpleDeviceSpy.h"
-#include "SimpleSleepableStub.h"
-#include "Sleepable.h"
 #include "CppUTest/TestHarness.h"
+#include "SimpleDeviceSpy.h"
+#include "Sleepable.h"
+#include "sleepable/SimpleSleepableStub.h"
 
 int simple_device_sleep_counter;
 
