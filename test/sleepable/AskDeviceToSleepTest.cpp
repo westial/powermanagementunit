@@ -1,7 +1,7 @@
 #include "AskToSleep.h"
 #include "CppUTest/TestHarness.h"
-#include "SimpleDeviceSpy.h"
 #include "Sleepable.h"
+#include "device/SimpleDeviceSpy.h"
 #include "sleepable/SimpleSleepableStub.h"
 
 int simple_device_sleep_counter;
@@ -34,7 +34,7 @@ TEST(AskToSleep, MakeSimpleDeviceSleep) {
 }
 
 //TEST(AskToSleep, MakeSleepADeviceWitTwoArgsCallback) {
-//  SleepableStruct device = Sleepable_Create(100, spy_two_args_sleep_command);
+//  SleepableStruct device = Sleepable_Create(100, NotSoSimpleDeviceSpy_Sleep);
 //  CHECK_TRUE(AskToSleep(&device, 99));
-//  CHECK_EQUAL(1, spy_sleep_counter);
+//  CHECK_EQUAL(1, not_so_simple_device_sleep_counter);
 //}
