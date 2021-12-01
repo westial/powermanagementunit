@@ -1,4 +1,4 @@
-#include "SimpleSleepableStub.h"
+#include "AlreadyOffSimpleSleepableStub.h"
 #include "SleepablePrivate.h"
 #include <malloc.h>
 
@@ -11,7 +11,9 @@ typedef struct SimpleSleepableStruct {
 
 static int turn_off(Sleepable super) {
   SimpleSleepable self = (SimpleSleepable) super;
+  if (1 == self->base.is_sleeping) return 0;
   self->Sleep();
+  self->base.is_sleeping = 1;
   return 1;
 }
 
@@ -24,13 +26,14 @@ static SleepableInterfaceStruct interface = {turn_off, destroy};
 
 // -----------------------------------------------------------------------------
 
-Sleepable SimpleSleepable_Create(unsigned char power_threshold, void (*sleep)()) {
+Sleepable AlreadyOffSimpleSleepable_Create(unsigned char power_threshold, void (*sleep)()) {
   SimpleSleepable self = calloc(1, sizeof(SimpleSleepableStruct));
   self->base.power_threshold = power_threshold;
+  self->base.is_sleeping = 1;
   self->Sleep = sleep;
   return (Sleepable) self;
 }
 
-void SimpleSleepable_InstallInterface() {
+void AlreadyOffSimpleSleepable_InstallInterface() {
   Sleepable_SetInterface(&interface);
 }

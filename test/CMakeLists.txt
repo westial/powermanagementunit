@@ -34,4 +34,5 @@ target_link_libraries(RunAllTests
         SimpleSleepableStub
         NotSoSimpleDeviceSpy
         NotSoSimpleSleepableStub
+        AlreadyOffSimpleSleepableStub
         )

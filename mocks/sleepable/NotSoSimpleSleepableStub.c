@@ -11,9 +11,10 @@ typedef struct NotSoSimpleSleepableStruct
 
 // Fulfill the interface methods -----------------------------------------------
 
-static void turn_off(Sleepable super) {
+static int turn_off(Sleepable super) {
   NotSoSimpleSleepable self = (NotSoSimpleSleepable) super;
   self->Sleep(self->input, self->input_size);
+  return 1;
 }
 
 static void destroy(Sleepable super) {

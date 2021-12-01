@@ -2,9 +2,10 @@
 #include "CppUTest/TestHarness.h"
 #include "Sleepable.h"
 #include "device/SimpleDeviceSpy.h"
-#include "sleepable/SimpleSleepableStub.h"
-#include <device/NotSoSimpleDeviceSpy.h>
 #include "sleepable/NotSoSimpleSleepableStub.h"
+#include "sleepable/SimpleSleepableStub.h"
+#include "device/NotSoSimpleDeviceSpy.h"
+#include "sleepable/AlreadyOffSimpleSleepableStub.h"
 
 int simple_device_sleep_counter;
 int not_so_simple_device_sleep_counter;
@@ -14,9 +15,10 @@ TEST_GROUP(AskToSleep){
 
     void setup() override{
         simple_device_sleep_counter = 0;
-        SimpleSleepable_InstallInterface();
         not_so_simple_device_sleep_counter = 0;
+        SimpleSleepable_InstallInterface();
         NotSoSimpleSleepable_InstallInterface();
+        AlreadyOffSimpleSleepable_InstallInterface();
     }
 };
 
@@ -77,4 +79,11 @@ TEST(AskToSleep, MakeSleepTwoDevicesWitATwoArgsAndReturningAValueCallback) {
   CHECK_FALSE(AskToSleep(instance1, 99));
   CHECK_EQUAL(2, not_so_simple_device_sleep_counter);
   STRCMP_EQUAL("what's up with him!", not_so_simple_device_content_param_spy);
+}
+
+TEST(AskToSleep, DoNotMakeItSleepIfItIsAlreadySleeping) {
+  Sleepable instance = AlreadyOffSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  unsigned char result = AskToSleep(instance, 10);
+  CHECK_TRUE(result);
+  CHECK_EQUAL(0, simple_device_sleep_counter);
 }

@@ -6,12 +6,13 @@ extern "C" {
 #endif
 
 typedef struct SleepableInterfaceStruct {
-  void (*TurnOff)(Sleepable instance);
+  int (*TurnOff)(Sleepable instance);
   void (*Destroy)(Sleepable instance);
 } SleepableInterfaceStruct;
 
 typedef struct SleepableStruct {
   unsigned char power_threshold;
+  unsigned char is_sleeping;
 } SleepableStruct;
 
 #ifdef __cplusplus

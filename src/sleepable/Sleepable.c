@@ -6,8 +6,8 @@ void Sleepable_SetInterface(SleepableInterface interface_) {
   interface = interface_;
 }
 
-void Sleepable_TurnOff(Sleepable self) {
-  interface->TurnOff(self);
+int Sleepable_TurnOff(Sleepable self) {
+  return interface->TurnOff(self);
 }
 
 void Sleepable_Destroy(Sleepable self) {

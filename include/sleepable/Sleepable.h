@@ -11,7 +11,7 @@ typedef struct SleepableStruct *Sleepable;
 
 void Sleepable_SetInterface(SleepableInterface interface);
 void Sleepable_Destroy(Sleepable instance);
-void Sleepable_TurnOff(Sleepable instance);
+int Sleepable_TurnOff(Sleepable instance);
 
 #ifdef __cplusplus
 }

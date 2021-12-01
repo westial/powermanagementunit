@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-unsigned char AskToSleep(Sleepable instance, unsigned char power_level);
+int AskToSleep(Sleepable instance, unsigned char power_level);
 
 #ifdef __cplusplus
 }
