@@ -32,8 +32,7 @@ Sleepable NotSoSimpleSleepable_Create(
     char *input,
     int input_size) {
   NotSoSimpleSleepable self = calloc(1, sizeof(NotSoSimpleSleepableStruct));
-  self->base.vtable = &interface;
-  self->base.power_threshold = power_threshold;
+  Sleepable_Init((Sleepable)self, &interface, power_threshold);
   self->input = input;
   self->input_size = input_size;
   self->Sleep = sleep;

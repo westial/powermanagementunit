@@ -9,7 +9,10 @@ typedef struct SleepableInterfaceStruct *SleepableInterface;
 
 typedef struct SleepableStruct *Sleepable;
 
-void Sleepable_SetInterface(SleepableInterface interface);
+void Sleepable_Init(
+    Sleepable instance,
+    SleepableInterface interface,
+    unsigned char power_threshold);
 void Sleepable_Destroy(Sleepable instance);
 int Sleepable_TurnOff(Sleepable instance);
 
