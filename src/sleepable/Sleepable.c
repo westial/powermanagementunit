@@ -7,7 +7,7 @@ void Sleepable_SetInterface(SleepableInterface interface_) {
 }
 
 int Sleepable_TurnOff(Sleepable self) {
-  return interface->TurnOff(self);
+  return self->vtable->TurnOff(self);
 }
 
 void Sleepable_Destroy(Sleepable self) {

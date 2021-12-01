@@ -16,9 +16,6 @@ TEST_GROUP(AskToSleep){
     void setup() override{
         simple_device_sleep_counter = 0;
         not_so_simple_device_sleep_counter = 0;
-        SimpleSleepable_InstallInterface();
-        NotSoSimpleSleepable_InstallInterface();
-        AlreadyOffSimpleSleepable_InstallInterface();
     }
 };
 

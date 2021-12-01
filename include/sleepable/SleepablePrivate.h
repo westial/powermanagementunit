@@ -11,6 +11,7 @@ typedef struct SleepableInterfaceStruct {
 } SleepableInterfaceStruct;
 
 typedef struct SleepableStruct {
+  SleepableInterface vtable;
   unsigned char power_threshold;
   unsigned char is_sleeping;
 } SleepableStruct;

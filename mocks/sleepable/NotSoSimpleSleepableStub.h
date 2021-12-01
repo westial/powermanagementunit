@@ -13,7 +13,6 @@ Sleepable NotSoSimpleSleepable_Create(
     int (*sleep)(char *, int),
     char *input,
     int input_size);
-void NotSoSimpleSleepable_InstallInterface();
 
 #ifdef __cplusplus
 }

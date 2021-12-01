@@ -28,12 +28,9 @@ static SleepableInterfaceStruct interface = {turn_off, destroy};
 
 Sleepable AlreadyOffSimpleSleepable_Create(unsigned char power_threshold, void (*sleep)()) {
   SimpleSleepable self = calloc(1, sizeof(SimpleSleepableStruct));
+  self->base.vtable = &interface;
   self->base.power_threshold = power_threshold;
   self->base.is_sleeping = 1;
   self->Sleep = sleep;
   return (Sleepable) self;
-}
-
-void AlreadyOffSimpleSleepable_InstallInterface() {
-  Sleepable_SetInterface(&interface);
 }

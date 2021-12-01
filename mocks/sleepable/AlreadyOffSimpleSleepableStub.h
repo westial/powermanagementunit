@@ -9,7 +9,6 @@
   typedef struct SimpleSleepableStruct *SimpleSleepable;
 
   Sleepable AlreadyOffSimpleSleepable_Create(unsigned char power_threshold, void (*sleep)());
-  void AlreadyOffSimpleSleepable_InstallInterface();
 
 #ifdef __cplusplus
 }
