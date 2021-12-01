@@ -1,11 +1,12 @@
 #include "AskToSleep.h"
 #include "CppUTest/TestHarness.h"
 #include "Sleepable.h"
+#include "device/NotSoSimpleDeviceSpy.h"
 #include "device/SimpleDeviceSpy.h"
+#include "sleepable/AlreadyOffSimpleSleepableStub.h"
 #include "sleepable/NotSoSimpleSleepableStub.h"
 #include "sleepable/SimpleSleepableStub.h"
-#include "device/NotSoSimpleDeviceSpy.h"
-#include "sleepable/AlreadyOffSimpleSleepableStub.h"
+#include <sleepable/FailingSimpleSleepableStub.h>
 
 int simple_device_sleep_counter;
 int not_so_simple_device_sleep_counter;
@@ -80,7 +81,13 @@ TEST(AskToSleep, MakeSleepTwoDevicesWitATwoArgsAndReturningAValueCallback) {
 
 TEST(AskToSleep, DoNotMakeItSleepIfItIsAlreadySleeping) {
   Sleepable instance = AlreadyOffSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
-  unsigned char result = AskToSleep(instance, 10);
+  int result = AskToSleep(instance, 10);
   CHECK_TRUE(result);
   CHECK_EQUAL(0, simple_device_sleep_counter);
+}
+
+TEST(AskToSleep, ErrorOnMakingADeviceSleep) {
+  Sleepable instance = FailingSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  int result = AskToSleep(instance, 10);
+  CHECK_EQUAL(-1, result);
 }
