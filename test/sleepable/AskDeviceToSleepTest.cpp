@@ -6,7 +6,7 @@
 #include "sleepable/AlreadyOffSimpleSleepableStub.h"
 #include "sleepable/NotSoSimpleSleepableStub.h"
 #include "sleepable/SimpleSleepableStub.h"
-#include <sleepable/FailingSimpleSleepableStub.h>
+#include "sleepable/FailingSimpleSleepableStub.h"
 
 int simple_device_sleep_counter;
 int not_so_simple_device_sleep_counter;

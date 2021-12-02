@@ -17,6 +17,7 @@ set_property(TARGET imp_cpputest PROPERTY IMPORTED_LOCATION $ENV{CPPUTEST_PARENT
 add_library(GetLevelTest powermu/GetLevelTest.cpp)
 add_library(PercentTest number/PercentTest.cpp)
 add_library(MakeDeviceSleepTest sleepable/AskDeviceToSleepTest.cpp)
+add_library(SleepableBusTest sleepable/SleepableBusTest.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 
@@ -25,10 +26,12 @@ target_link_libraries(RunAllTests
         GetLevelTest
         PercentTest
         MakeDeviceSleepTest
+        SleepableBusTest
         PowerMU
         Percent
         AskToSleep
         Sleepable
+        SleepableBus
         GetLevelStub
         SimpleDeviceSpy
         SimpleSleepableStub
