@@ -11,6 +11,7 @@ typedef struct NotSoSimpleSleepableStruct *NotSoSimpleSleepable;
 Sleepable NotSoSimpleSleepable_Create(
     unsigned char power_threshold,
     int (*sleep)(char *, int),
+    int (*wake_up)(char *, int),
     char *input,
     int input_size);
 

@@ -5,6 +5,7 @@ IMPORT_TEST_GROUP(GetLevel);
 IMPORT_TEST_GROUP(Percent);
 IMPORT_TEST_GROUP(AskToSleep);
 IMPORT_TEST_GROUP(SleepableBus);
+IMPORT_TEST_GROUP(WakeUp);
 
 int main(int argc, char** argv)
 {

@@ -7,6 +7,7 @@ extern "C" {
 
 typedef struct SleepableInterfaceStruct {
   int (*TurnOff)(Sleepable instance);
+  int (*TurnOn)(Sleepable instance);
   void (*Destroy)(Sleepable instance);
 } SleepableInterfaceStruct;
 
