@@ -19,7 +19,8 @@ int SleepableBus_Add(SleepableBus *bus, Sleepable device) {
 }
 
 Sleepable SleepableBus_Get(SleepableBus *bus, unsigned int index) {
-  return bus->devices[index];
+  if (index < bus->length) return bus->devices[index];
+  return 0;
 }
 
 unsigned int SleepableBus_Length(SleepableBus *bus) {

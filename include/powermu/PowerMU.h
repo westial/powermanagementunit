@@ -21,6 +21,8 @@ int PowerMU_Balance(PowerMU* pmu);
 
 int PowerMU_Register(PowerMU* pmu, Sleepable device);
 
+void PowerMU_Destroy(PowerMU* pmu);
+
 #ifdef __cplusplus
 }
 #endif
