@@ -8,10 +8,6 @@
 #include "sleepable/SimpleSleepableStub.h"
 #include "sleepable/FailingSimpleSleepableStub.h"
 
-int simple_device_sleep_counter;
-int not_so_simple_device_sleep_counter;
-char not_so_simple_device_content_param_spy[INPUT_LENGTH];
-
 TEST_GROUP(AskToSleep){
 
     void setup() override{
@@ -21,7 +17,10 @@ TEST_GROUP(AskToSleep){
 };
 
 TEST(AskToSleep, BypassPowerCheck) {
-  Sleepable instance = SimpleSleepable_Create(0, SimpleDeviceSpy_Sleep);
+  Sleepable instance = SimpleSleepable_Create(
+      0,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   CHECK_FALSE(AskToSleep(instance, 0));
   CHECK_FALSE(AskToSleep(instance, 50));
   CHECK_FALSE(AskToSleep(instance, 100));
@@ -29,14 +28,20 @@ TEST(AskToSleep, BypassPowerCheck) {
 }
 
 TEST(AskToSleep, ReturnNoNeedToSleep) {
-  Sleepable instance = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  Sleepable instance = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   CHECK_FALSE(AskToSleep(instance, 50));
   CHECK_FALSE(AskToSleep(instance, 51));
   CHECK_EQUAL(0, instance->is_sleeping);
 }
 
 TEST(AskToSleep, MakeSimpleDeviceSleep) {
-  Sleepable instance = SimpleSleepable_Create(100, SimpleDeviceSpy_Sleep);
+  Sleepable instance = SimpleSleepable_Create(
+      100,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   CHECK_TRUE(AskToSleep(instance, 99));
   CHECK_EQUAL(1, simple_device_sleep_counter);
 }
@@ -46,9 +51,9 @@ TEST(AskToSleep, MakeSleepADeviceWitATwoArgsAndReturningAValueCallback) {
   Sleepable instance = NotSoSimpleSleepable_Create(
       100,
       NotSoSimpleDeviceSpy_Sleep,
+      NotSoSimpleDeviceSpy_WakeUp,
       input,
-      sizeof(input)
-      );
+      sizeof(input));
   int result = AskToSleep(instance, 99);
   CHECK_TRUE(result);
   CHECK_EQUAL(1, not_so_simple_device_sleep_counter);
@@ -62,15 +67,15 @@ TEST(AskToSleep, MakeSleepTwoDevicesWitATwoArgsAndReturningAValueCallback) {
   Sleepable instance1 = NotSoSimpleSleepable_Create(
       80,
       NotSoSimpleDeviceSpy_Sleep,
+      NotSoSimpleDeviceSpy_WakeUp,
       input1,
-      sizeof(input1)
-      );
+      sizeof(input1));
   Sleepable instance2 = NotSoSimpleSleepable_Create(
       80,
       NotSoSimpleDeviceSpy_Sleep,
+      NotSoSimpleDeviceSpy_WakeUp,
       input2,
-      sizeof(input2)
-      );
+      sizeof(input2));
   CHECK_TRUE(AskToSleep(instance1, 79));
   CHECK_EQUAL(1, instance1->is_sleeping);
   CHECK_EQUAL(1, not_so_simple_device_sleep_counter);
@@ -96,4 +101,5 @@ TEST(AskToSleep, ErrorOnMakingADeviceSleep) {
   Sleepable instance = FailingSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
   int result = AskToSleep(instance, 10);
   CHECK_EQUAL(-1, result);
+  CHECK_EQUAL(0, instance->is_sleeping);
 }

@@ -8,7 +8,11 @@ extern "C" {
 
 typedef struct SimpleSleepableStruct *SimpleSleepable;
 
-Sleepable SimpleSleepable_Create(unsigned char power_threshold, void (*sleep)());
+Sleepable SimpleSleepable_Create(
+    unsigned char power_threshold,
+    void (*sleep)(),
+    void (*wake_up)()
+    );
 
 #ifdef __cplusplus
 }

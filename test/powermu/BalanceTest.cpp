@@ -1,7 +1,7 @@
 #include "CppUTest/TestHarness.h"
 #include "PowerMU.h"
-#include "powermu/GetLevelStub.h"
 #include "device/SimpleDeviceSpy.h"
+#include "powermu/GetLevelStub.h"
 #include "sleepable/SimpleSleepableStub.h"
 
 PowerMU pmu;
@@ -10,12 +10,14 @@ TEST_GROUP(Balance){
 
     void setup() override{
         PercentRange range = Percent_Create(0, 100);
-        pmu = PowerMU_Create((const void *) get_stub_level_percentage, &range);
-    }
+pmu = PowerMU_Create((const void *) get_stub_level_percentage, &range);
+}
 
-    void teardown() override{
-        PowerMU_Destroy(&pmu);
-    }};
+void teardown() override {
+  PowerMU_Destroy(&pmu);
+}
+}
+;
 
 TEST(Balance, EmptySleepableBusError) {
   stub_level_percentage = 5;
@@ -33,7 +35,10 @@ TEST(Balance, RegisterADevice) {
 
 TEST(Balance, NoBalanceDueToAGoodPowerLevel) {
   stub_level_percentage = 65;
-  Sleepable device = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  Sleepable device = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device);
   int result = PowerMU_Balance(&pmu);
   CHECK_EQUAL(0, result);
@@ -41,7 +46,10 @@ TEST(Balance, NoBalanceDueToAGoodPowerLevel) {
 
 TEST(Balance, MakeADeviceSleep) {
   stub_level_percentage = 31;
-  Sleepable device = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  Sleepable device = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device);
   int result = PowerMU_Balance(&pmu);
   CHECK_EQUAL(1, result);
@@ -49,8 +57,14 @@ TEST(Balance, MakeADeviceSleep) {
 
 TEST(Balance, MakeTwoDevicesSleep) {
   stub_level_percentage = 31;
-  Sleepable device1 = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
-  Sleepable device2 = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  Sleepable device1 = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
+  Sleepable device2 = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device1);
   PowerMU_Register(&pmu, device2);
   int result = PowerMU_Balance(&pmu);
@@ -59,9 +73,18 @@ TEST(Balance, MakeTwoDevicesSleep) {
 
 TEST(Balance, MakeTwoDevicesSleepOfThree) {
   stub_level_percentage = 31;
-  Sleepable device1 = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
-  Sleepable device2 = SimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
-  Sleepable device3 = SimpleSleepable_Create(30, SimpleDeviceSpy_Sleep);
+  Sleepable device1 = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
+  Sleepable device2 = SimpleSleepable_Create(
+      50,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
+  Sleepable device3 = SimpleSleepable_Create(
+      30,
+      SimpleDeviceSpy_Sleep,
+      SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device1);
   PowerMU_Register(&pmu, device2);
   PowerMU_Register(&pmu, device3);
