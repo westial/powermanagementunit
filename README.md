@@ -34,7 +34,7 @@ kept reports together to the backend.
 
 ## Thanks ##
 
-My C programming journey is based on this book 
+My C programming journey is based on 
 [Test-Driven Development for Embedded C by James W. Grenning](https://pragprog.com/titles/jgade/test-driven-development-for-embedded-c/).
 A great book to learn much more than advanced C programming.
 
