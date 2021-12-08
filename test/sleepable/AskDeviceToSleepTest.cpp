@@ -90,7 +90,7 @@ TEST(AskToSleep, MakeSleepTwoDevicesWitATwoArgsAndReturningAValueCallback) {
 }
 
 TEST(AskToSleep, DoNotMakeItSleepIfItIsAlreadySleeping) {
-  Sleepable instance = AlreadyOffSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  Sleepable instance = AlreadyOffSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep, SimpleDeviceSpy_WakeUp);
   int result = AskToSleep(instance, 10);
   CHECK_TRUE(result);
   CHECK_EQUAL(0, simple_device_sleep_counter);
@@ -98,7 +98,8 @@ TEST(AskToSleep, DoNotMakeItSleepIfItIsAlreadySleeping) {
 }
 
 TEST(AskToSleep, ErrorOnMakingADeviceSleep) {
-  Sleepable instance = FailingSimpleSleepable_Create(50, SimpleDeviceSpy_Sleep);
+  Sleepable instance = FailingSimpleSleepable_Create(
+      50, SimpleDeviceSpy_Sleep, SimpleDeviceSpy_WakeUp);
   int result = AskToSleep(instance, 10);
   CHECK_EQUAL(-1, result);
   CHECK_EQUAL(0, instance->is_sleeping);
