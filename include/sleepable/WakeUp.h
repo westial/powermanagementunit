@@ -6,8 +6,7 @@
 extern "C" {
 #endif
 
-int WakeUp(Sleepable instance);
-int xx_WakeUp(Sleepable instance, unsigned char power_level);
+int WakeUp(Sleepable instance, unsigned char power_level);
 
 #ifdef __cplusplus
 }

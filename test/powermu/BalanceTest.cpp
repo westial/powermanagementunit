@@ -100,9 +100,11 @@ TEST(Balance, MakeSleepAndThenWakeUpADevice) {
       SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device);
   device->is_sleeping = 1;
-  PowerMU_Balance(&pmu);
-  stub_level_percentage = 55;
   PowerReport result = PowerMU_Balance(&pmu);
+  CHECK_EQUAL(1, result.asleep);
+  CHECK_EQUAL(0, result.awake);
+  stub_level_percentage = 55;
+  result = PowerMU_Balance(&pmu);
   CHECK_EQUAL(0, result.asleep);
   CHECK_EQUAL(1, result.awake);
   int expected_sleep = count_asleep(&pmu.sleepables);
