@@ -15,6 +15,7 @@ void Sleepable_Init(
     unsigned char power_threshold);
 void Sleepable_Destroy(Sleepable instance);
 int Sleepable_TurnOff(Sleepable instance);
+int Sleepable_TurnOn(Sleepable instance);
 
 #ifdef __cplusplus
 }

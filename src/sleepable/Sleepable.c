@@ -11,7 +11,13 @@ void Sleepable_Init(
 
 int Sleepable_TurnOff(Sleepable self) {
   if (1 == self->is_sleeping) return 0;
+  self->is_sleeping = 1;
   return self->vtable->TurnOff(self);
+}
+
+int Sleepable_TurnOn(Sleepable self) {
+  if (0 == self->is_sleeping) return 0;
+  return self->vtable->TurnOn(self);
 }
 
 void Sleepable_Destroy(Sleepable self) {

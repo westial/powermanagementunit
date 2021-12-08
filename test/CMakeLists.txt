@@ -19,6 +19,7 @@ add_library(GetLevelTest powermu/GetLevelTest.cpp)
 add_library(PercentTest number/PercentTest.cpp)
 add_library(MakeDeviceSleepTest sleepable/AskDeviceToSleepTest.cpp)
 add_library(SleepableBusTest sleepable/SleepableBusTest.cpp)
+add_library(WakeUpDeviceTest sleepable/WakeUpDeviceTest.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 
@@ -28,10 +29,12 @@ target_link_libraries(RunAllTests
         PercentTest
         MakeDeviceSleepTest
         SleepableBusTest
+        WakeUpDeviceTest
         BalanceTest
         PowerMU
         Percent
         AskToSleep
+        WakeUp
         Sleepable
         SleepableBus
         GetLevelStub
