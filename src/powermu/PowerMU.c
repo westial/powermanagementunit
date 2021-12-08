@@ -27,9 +27,16 @@ unsigned int make_all_device_sleep(unsigned char power_level, SleepableBus *bus)
   return sleeping_count;
 }
 
-int PowerMU_Balance(PowerMU* pmu) {
-  if (0 == SleepableBus_Length(&pmu->sleepables)) return -1;
-  return (int)make_all_device_sleep(PowerMU_GetLevel(pmu), &pmu->sleepables);
+PowerReport PowerMU_Balance(PowerMU* pmu) {
+  PowerReport report;
+  if (0 == SleepableBus_Length(&pmu->sleepables)) {
+    report.error = 1;
+  } else {
+    report.error = 0;
+    report.asleep = (int)make_all_device_sleep(PowerMU_GetLevel(pmu), &pmu->sleepables);
+    report.awake = (int)SleepableBus_Length(&pmu->sleepables) - report.asleep;
+  }
+  return report;
 }
 
 int PowerMU_Register(PowerMU* pmu, Sleepable device) {

@@ -7,6 +7,12 @@
 extern "C" {
 #endif
 
+typedef struct PowerReport {
+  int awake;
+  int asleep;
+  int error;
+} PowerReport;
+
 typedef struct PowerMU {
   double (*level)();
   PercentRange percent_range;
@@ -17,7 +23,7 @@ PowerMU PowerMU_Create(const void* get_level, PercentRange* rang);
 
 unsigned char PowerMU_GetLevel(PowerMU* pmu);
 
-int PowerMU_Balance(PowerMU* pmu);
+PowerReport PowerMU_Balance(PowerMU* pmu);
 
 int PowerMU_Register(PowerMU* pmu, Sleepable device);
 

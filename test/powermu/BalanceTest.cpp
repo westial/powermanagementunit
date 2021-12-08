@@ -21,8 +21,8 @@ void teardown() override {
 
 TEST(Balance, EmptySleepableBusError) {
   stub_level_percentage = 5;
-  int result = PowerMU_Balance(&pmu);
-  CHECK_EQUAL(-1, result);
+  PowerReport result = PowerMU_Balance(&pmu);
+  CHECK_EQUAL(1, result.error);
 }
 
 TEST(Balance, RegisterADevice) {
@@ -40,8 +40,9 @@ TEST(Balance, NoBalanceDueToAGoodPowerLevel) {
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device);
-  int result = PowerMU_Balance(&pmu);
-  CHECK_EQUAL(0, result);
+  PowerReport result = PowerMU_Balance(&pmu);
+  CHECK_EQUAL(0, result.asleep);
+  CHECK_EQUAL(0, result.error);
 }
 
 TEST(Balance, MakeADeviceSleep) {
@@ -51,8 +52,8 @@ TEST(Balance, MakeADeviceSleep) {
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device);
-  int result = PowerMU_Balance(&pmu);
-  CHECK_EQUAL(1, result);
+  PowerReport result = PowerMU_Balance(&pmu);
+  CHECK_EQUAL(1, result.asleep);
 }
 
 TEST(Balance, MakeTwoDevicesSleep) {
@@ -67,8 +68,8 @@ TEST(Balance, MakeTwoDevicesSleep) {
       SimpleDeviceSpy_WakeUp);
   PowerMU_Register(&pmu, device1);
   PowerMU_Register(&pmu, device2);
-  int result = PowerMU_Balance(&pmu);
-  CHECK_EQUAL(2, result);
+  PowerReport result = PowerMU_Balance(&pmu);
+  CHECK_EQUAL(2, result.asleep);
 }
 
 TEST(Balance, MakeTwoDevicesSleepOfThree) {
@@ -88,6 +89,7 @@ TEST(Balance, MakeTwoDevicesSleepOfThree) {
   PowerMU_Register(&pmu, device1);
   PowerMU_Register(&pmu, device2);
   PowerMU_Register(&pmu, device3);
-  int result = PowerMU_Balance(&pmu);
-  CHECK_EQUAL(2, result);
+  PowerReport result = PowerMU_Balance(&pmu);
+  CHECK_EQUAL(2, result.asleep);
+  CHECK_EQUAL(1, result.awake);
 }
