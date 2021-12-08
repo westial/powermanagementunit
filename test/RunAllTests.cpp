@@ -1,5 +1,6 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
+IMPORT_TEST_GROUP(Balance);
 IMPORT_TEST_GROUP(GetLevel);
 IMPORT_TEST_GROUP(Percent);
 IMPORT_TEST_GROUP(AskToSleep);
