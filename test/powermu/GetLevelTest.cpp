@@ -1,8 +1,7 @@
 #include "CppUTest/TestHarness.h"
-#include "GetLevelStub.h"
 #include "PowerMU.h"
+#include "powermu/GetLevelStub.h"
 
-int stub_level_percentage;
 
 TEST_GROUP(GetLevel){
 
