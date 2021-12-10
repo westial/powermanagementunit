@@ -4,6 +4,16 @@ project(PowerManagementUnit)
 
 set(CMAKE_C_STANDARD 99)
 
+# Check for CppUTest and bail out if they don't have it
+if(DEFINED ENV{CPPUTEST_HOME} AND DEFINED ENV{CPPUTESTEXT_HOME} AND DEFINED ENV{CPPUTEST_PARENT_DIR})
+    message("Using CppUTest found in $ENV{CPPUTEST_HOME}")
+    message("Using CppUTest Extensions found in $ENV{CPPUTESTEXT_HOME}")
+    message("Using CppUTest library basedir found in $ENV{CPPUTEST_PARENT_DIR}")
+else()
+    message("CPPUTEST_HOME or CPPUTESTEXT_HOME or CPPUTEST_PARENT_DIR is not set; You must tell CMake where to find CppUTest")
+    return()
+endif()
+
 enable_language(C)
 enable_language(CXX)
 

@@ -1,0 +1,10 @@
+name=PowerManagementUnit
+version=1.0.0
+author=Jaume Mila <jaume@westial.com>
+maintainer=Jaume Mila <jaume@westial.com>
+sentence=Library for unstable power supply management.
+paragraph=It manages all registered devices sleeping mode according to their individual power level threshold.
+category=Other
+url=https://github.com/westial/powermanagementunit
+architectures=*
+includes=*

@@ -2,9 +2,9 @@
 #include "PowerMU.h"
 #include "device/SimpleDeviceSpy.h"
 #include "powermu/GetLevelStub.h"
-#include "sleepable/FailingSimpleSleepableStub.h"
-#include "sleepable/SimpleSleepableStub.h"
 #include "sleepable/AlreadyOffSimpleSleepableStub.h"
+#include "sleepable/FailingSimpleSleepableStub.h"
+#include "VoidSleepable.h"
 
 int count_asleep(SleepableBus *bus);
 int count_awake(SleepableBus *bus);
@@ -58,7 +58,7 @@ TEST(Balance, RegisterADevice) {
 
 TEST(Balance, NoBalanceDueToAGoodPowerLevel) {
   stub_level_percentage = 65;
-  Sleepable device = SimpleSleepable_Create(
+  Sleepable device = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -70,7 +70,7 @@ TEST(Balance, NoBalanceDueToAGoodPowerLevel) {
 
 TEST(Balance, MakeADeviceSleep) {
   stub_level_percentage = 31;
-  Sleepable device = SimpleSleepable_Create(
+  Sleepable device = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -94,7 +94,7 @@ TEST(Balance, ErrorOnMakingADeviceSleep) {
 
 TEST(Balance, WakeUpADevice) {
   stub_level_percentage = 55;
-  Sleepable device = SimpleSleepable_Create(
+  Sleepable device = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -123,7 +123,7 @@ TEST(Balance, ErrorOnWakingUpADevice) {
 
 TEST(Balance, MakeSleepAndThenWakeUpADevice) {
   stub_level_percentage = 31;
-  Sleepable device = SimpleSleepable_Create(
+  Sleepable device = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -144,11 +144,11 @@ TEST(Balance, MakeSleepAndThenWakeUpADevice) {
 
 TEST(Balance, MakeTwoDevicesSleep) {
   stub_level_percentage = 31;
-  Sleepable device1 = SimpleSleepable_Create(
+  Sleepable device1 = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
-  Sleepable device2 = SimpleSleepable_Create(
+  Sleepable device2 = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -165,15 +165,15 @@ TEST(Balance, MakeTwoDevicesSleep) {
 
 TEST(Balance, MakeTwoDevicesSleepOfThree) {
   stub_level_percentage = 31;
-  Sleepable device1 = SimpleSleepable_Create(
+  Sleepable device1 = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
-  Sleepable device2 = SimpleSleepable_Create(
+  Sleepable device2 = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
-  Sleepable device3 = SimpleSleepable_Create(
+  Sleepable device3 = VoidSleepable_Create(
       30,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -191,7 +191,7 @@ TEST(Balance, MakeTwoDevicesSleepOfThree) {
 
 TEST(Balance, MakeOneDeviceSleepAndFailAnother) {
   stub_level_percentage = 31;
-  Sleepable device1 = SimpleSleepable_Create(
+  Sleepable device1 = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -230,7 +230,7 @@ TEST(Balance, WakeUpOneDeviceAndFailAnother) {
 
 TEST(Balance, WakeUpOneDeviceFailWakingUpAnotherMakeAnotherSleepAndFailTheLastSleep) {
   stub_level_percentage = 31;
-  Sleepable device1 = SimpleSleepable_Create(
+  Sleepable device1 = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -238,7 +238,7 @@ TEST(Balance, WakeUpOneDeviceFailWakingUpAnotherMakeAnotherSleepAndFailTheLastSl
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
-  Sleepable device3 = SimpleSleepable_Create(
+  Sleepable device3 = VoidSleepable_Create(
       30,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);

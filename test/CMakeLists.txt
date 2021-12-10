@@ -5,6 +5,7 @@ include_directories(${PROJECT_SOURCE_DIR}/../include)
 include_directories(${PROJECT_SOURCE_DIR}/../include/powermu)
 include_directories(${PROJECT_SOURCE_DIR}/../include/number)
 include_directories(${PROJECT_SOURCE_DIR}/../include/sleepable)
+include_directories(${PROJECT_SOURCE_DIR}/../include/sleepable/predefined)
 
 # include mocks only for test code
 include_directories(${PROJECT_SOURCE_DIR}/../mocks)
@@ -36,10 +37,10 @@ target_link_libraries(RunAllTests
         AskToSleep
         WakeUp
         Sleepable
+        VoidSleepable
         SleepableBus
         GetLevelStub
         SimpleDeviceSpy
-        SimpleSleepableStub
         NotSoSimpleDeviceSpy
         NotSoSimpleSleepableStub
         AlreadyOffSimpleSleepableStub
