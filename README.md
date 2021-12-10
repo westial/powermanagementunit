@@ -1,6 +1,13 @@
 Power Management Unit ![powermu icon](doc/powermu_mini.png)
 =====================
 
+* [Usage](#usage)
+* [Example of use](#example-of-use)
+* [Arduino Library](#arduino-library)
+* [Thanks](#thanks)
+* [License](#license)
+* [Author](#author)
+
 Power Management Unit SDK for unstable supply source.
 
 It manages all registered devices sleeping mode according to their individual
@@ -32,6 +39,17 @@ the power level is under 50% for example. I'm keeping the sensor readings
 until a few sunny hours charge my battery at least 50%, and then I'm sending all
 kept reports together to the backend.
 
+## Arduino Library ##
+
+There is an Arduino library based implementation in [./arduino](./arduino).
+
+To prepare the files for this Arduino library, go to this directory and execute
+`make`. It creates a subdirectory in [./arduino/prebuild](./arduino/prebuild)
+with the directory of the library itself [./arduino/prebuild/PowerManagementUnit](./arduino/prebuild/PowerManagementUnit)
+
+To install the library move the [./arduino/prebuild/PowerManagementUnit](./arduino/prebuild/PowerManagementUnit)
+to your Arduino Libraries directory.
+
 ## Thanks ##
 
 My C programming journey is based on 
@@ -44,5 +62,5 @@ GNU General Public License (GPLv3). Read the attached [license file](LICENSE.txt
 
 ## Author ##
 
-Jaume Mila Bea <jaume@westial.com>
+Jaume Mila Bea <jaume@westial.com>_
 

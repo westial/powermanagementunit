@@ -4,9 +4,9 @@
 #include "device/NotSoSimpleDeviceSpy.h"
 #include "device/SimpleDeviceSpy.h"
 #include "sleepable/AlreadyOffSimpleSleepableStub.h"
-#include "sleepable/NotSoSimpleSleepableStub.h"
-#include "sleepable/SimpleSleepableStub.h"
 #include "sleepable/FailingSimpleSleepableStub.h"
+#include "sleepable/NotSoSimpleSleepableStub.h"
+#include "VoidSleepable.h"
 
 TEST_GROUP(AskToSleep){
 
@@ -17,7 +17,7 @@ TEST_GROUP(AskToSleep){
 };
 
 TEST(AskToSleep, BypassPowerCheck) {
-  Sleepable instance = SimpleSleepable_Create(
+  Sleepable instance = VoidSleepable_Create(
       0,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -28,7 +28,7 @@ TEST(AskToSleep, BypassPowerCheck) {
 }
 
 TEST(AskToSleep, ReturnNoNeedToSleep) {
-  Sleepable instance = SimpleSleepable_Create(
+  Sleepable instance = VoidSleepable_Create(
       50,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
@@ -38,7 +38,7 @@ TEST(AskToSleep, ReturnNoNeedToSleep) {
 }
 
 TEST(AskToSleep, MakeSimpleDeviceSleep) {
-  Sleepable instance = SimpleSleepable_Create(
+  Sleepable instance = VoidSleepable_Create(
       100,
       SimpleDeviceSpy_Sleep,
       SimpleDeviceSpy_WakeUp);
