@@ -1,6 +1,13 @@
 Power Management Unit ![powermu icon](doc/powermu_mini.png)
 =====================
 
+* [Usage](#usage)
+* [Example of use](#example-of-use)
+* [Arduino Library](#arduino-library)
+* [Thanks](#thanks)
+* [License](#license)
+* [Author](#author)
+
 Power Management Unit SDK for unstable supply source.
 
 It manages all registered devices sleeping mode according to their individual
@@ -55,5 +62,5 @@ GNU General Public License (GPLv3). Read the attached [license file](LICENSE.txt
 
 ## Author ##
 
-Jaume Mila Bea <jaume@westial.com>
+Jaume Mila Bea <jaume@westial.com>_
 
